@@ -1,0 +1,35 @@
+import './App.css';
+import React ,{Component, createContext} from 'react';
+
+const BatteryContext = createContext(90);
+
+class Leaf extends Component {
+  static contextType = BatteryContext
+  render(){
+    const battery = this.context
+    return(
+         <h1>A:{battery}</h1>
+    )
+  }
+}
+class Middle extends Component{
+  render(){
+    return <Leaf/>
+  }
+}
+class App extends Component {
+  state = {
+    battery: 6011
+  };
+  render(){
+    const {battery} = this.state
+    return (
+      <BatteryContext.Provider value = {battery}>
+        <Middle></Middle>
+      </BatteryContext.Provider>
+    )
+  }
+}
+
+
+export default App;

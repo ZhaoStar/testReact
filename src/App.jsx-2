@@ -1,0 +1,35 @@
+import './App.css';
+import React ,{Component, lazy, Suspense} from 'react';
+
+const About = lazy(()=>import(/* webpackChunkName:"aout"*/'./about.jsx'))
+class App extends Component {
+  state={
+    error: false
+  };
+  static getDerivedStateFromError() {
+    return {
+      error: true
+    }
+  }
+  // componentDidCatch(e){
+  //   console.log(e);
+  //   this.setState({
+  //     error: true
+  //   })
+  // }
+  render(){
+    if(this.state.error){
+        return <div>出错了</div>    
+    }
+    return (
+      <div>
+        <Suspense fallback={<div>加载中</div>}>
+        <About></About>
+        </Suspense>
+      </div>
+    )
+  }
+}
+
+
+export default App;
